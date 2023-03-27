@@ -13,7 +13,7 @@ function App() {
 
   const [airConditioners, setAirConditioner] = useState([]);
 
-  useEffect(() => {
+  useEffect(() => { 
 
   },[]);
 

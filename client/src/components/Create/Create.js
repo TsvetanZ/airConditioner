@@ -4,7 +4,7 @@ export const Create = () => {
   <section id="create-page" className="auth">
   <form id="create">
     <div className="container">
-      <h1>Create Game</h1>
+      <h1>Create Air Conditioner</h1>
       <label htmlFor="leg-title">Legendary title:</label>
       <input
         type="text"
