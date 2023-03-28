@@ -1,6 +1,8 @@
 import {useEffect, useState} from 'react';
 import {Routes, Route} from 'react-router-dom';
 
+import * as airService  from './services/airService'; 
+
 import {Navigation} from './components/Navigation/Navigation';
 import {Home} from './components/Home/Home';
 import { Footer } from './components/Footer/Footer.js';
@@ -11,10 +13,14 @@ import { Create } from './components/Create/Create';
 
 function App() {
 
-  const [airConditioners, setAirConditioner] = useState([]);
+  const [serviceAsk, setServiceAsk] = useState([]);
 
   useEffect(() => { 
-
+      airService.getAll()
+        .then(result => {
+          //console.log(result);
+          setServiceAsk(result);
+        })
   },[]);
 
   return (
