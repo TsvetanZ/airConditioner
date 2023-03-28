@@ -1,7 +1,11 @@
+import {request} from './requester'
 const baseUrl = 'http://localhost:3030/jsonstore/airConditioners'
 
 export const getAll = async  () => {
+    const serviceAsk = request('GET', baseUrl);
 
-    fetch(baseUrl)
-        .then()
+    console.log(serviceAsk);
+    
+    return serviceAsk
+
 }
