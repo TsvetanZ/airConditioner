@@ -1,11 +1,11 @@
 import {request} from './requester'
-const baseUrl = 'http://localhost:3030/jsonstore/airConditioners'
+const baseUrl = 'http://localhost:3030/jsonstore/serviceRequest'
 
 export const getAll = async  () => {
-    const serviceAsk = request('GET', baseUrl);
+    const askServices = request('GET', baseUrl);
 
-    console.log(serviceAsk);
-    
-    return serviceAsk
+    console.log(askServices);
+
+    return askServices;
 
 }
