@@ -1,3 +1,4 @@
+import styles from './ServiceItem.module.css';
 export const ServiceItem = ({
     name,
     imgUrl,
@@ -5,22 +6,34 @@ export const ServiceItem = ({
 
 }) => {
     return(
-        <div className="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.3s">
-              <div className="service-item bg-light border-bottom border-5 border-primary rounded">
-                <div className="position-relative p-5">
-                    <img className="d-block display-1 fw-normal text-secondary mb-3" src={imgUrl} alt={name} />
-                  <h5 className="text-primary mb-0">{genres}</h5>
-                  <h3 className="mb-3">Ehoo</h3>
-                  <p>
-                    Kasd dolor no lorem sit tempor at justo rebum rebum stet justo
-                    elitr dolor amet sit
-                  </p>
-                  <a href="">
-                    Read More
-                    <i className="bi bi-arrow-right ms-2" />
-                  </a>
-                </div>
-              </div>
-            </div>
+      <div className="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
+      <div className="position-relative border border-primary rounded">
+        <div className="bg-primary text-center pt-5 pb-4">
+          <h3 className="text-white">{name}</h3>
+          <img className={styles.imageStyle} src={imgUrl} alt="" />
+        </div>
+        <div className="text-center py-5">
+          <p className="border-bottom border-light mb-2 pb-2">
+            HTML5 &amp; CSS3
+          </p>
+          <p className="border-bottom border-light mb-2 pb-2">
+            Bootstrap v5
+          </p>
+          <p className="border-bottom border-light mb-2 pb-2">
+            Responsive Layout
+          </p>
+          <p className="border-bottom border-light mb-2 pb-2">
+            Browsers Compatibility
+          </p>
+          <p className="mb-2 pb-2">Easy to Use</p>
+        </div>
+        <a
+          href=""
+          className="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle"
+        >
+          Order Now
+        </a>
+      </div>
+    </div>
     );
 };
