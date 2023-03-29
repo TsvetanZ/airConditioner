@@ -1,47 +1,74 @@
-export const Create = () => {
+import { useState } from "react"
+
+export const Create = ({
+  onSubmit
+}) => {
+  const [values, setValues] = useState({
+    title: '',
+    category:'',
+    width: null,
+    height: null,
+    length: null,
+    imageUrl: '',
+    summary: '',
+  });
+
+  const onChangeHandler = (e) => {
+      setValues(state => ({...state, [e.target.name]: e.target.value}))
+  };
+  
     return (
      
   <section id="create-page" className="auth">
-  <form id="create">
+  <form id="create" onSubmit={ ()=>onSubmit(values) }>
     <div className="container">
-      <h1>Create Air Conditioner</h1>
-      <label htmlFor="leg-title">Legendary title:</label>
-      <input
-        type="text"
-        id="title"
-        name="title"
-        placeholder="Enter game title..."
-      />
+      <h1>Create Service</h1>
+
+      <label htmlFor="leg-title">Name air conditioner:</label>
+      <select value={values.title} onChange={onChangeHandler} id="title" name="title">
+              <option value="gree">Gree</option>
+              <option value="panasonic">Panasonic</option>
+              <option value="mitsubishi">Mitsubishi</option>
+              <option value="lg">LG</option>
+              <option value="daikin">Daikin</option>
+      </select> 
+
       <label htmlFor="category">Category:</label>
-      <input
-        type="text"
-        id="category"
-        name="category"
-        placeholder="Enter game category..."
-      />
-      <label htmlFor="levels">MaxLevel:</label>
-      <input
-        type="number"
-        id="maxLevel"
-        name="maxLevel"
-        min={1}
-        placeholder={1}
-      />
+      <select value={values.category} onChange={onChangeHandler} id="category" name="category"  >
+      <option value="gree">Gree</option>
+              <option value="wall-mounted">Wall mounted air conditioner</option>
+              <option value="floor">Floor air conditioner</option>
+              <option value="ceiling">Ceiling air conditioner</option>
+              <option value="multipleSplit">Multiple Split Systems</option>
+      </select>
+        <div className="roomSize">
+          <h6>Room size</h6>
+          <p>Enter the values in meters</p>
+          <label htmlFor="width">Width:</label>
+          <input value={values.width} onChange={onChangeHandler} type="number" id="width" name="width" placeholder={4} />
+
+          <label htmlFor="height">Higth:</label>
+          <input value={values.height} onChange={onChangeHandler} type="number" id="height" name="height" placeholder={2.8} />
+
+          <label htmlFor="lenght">Length:</label>
+          <input value={values.length} onChange={onChangeHandler} type="number" id="length" name="length" placeholder={2.8} />
+
+        </div>
+         
       <label htmlFor="game-img">Image:</label>
-      <input
+      <input value={values.imageUrl} onChange={onChangeHandler}
         type="text"
         id="imageUrl"
         name="imageUrl"
         placeholder="Upload a photo..."
       />
-      <label htmlFor="summary">Summary:</label>
-      <textarea name="summary" id="summary" defaultValue={""} />
-      <input
+      <label htmlFor="summary">Address:</label>
+      <textarea value={values.summary} onChange={onChangeHandler} name="summary" id="summary" defaultValue={""} />
+      <input 
         className="btn submit"
         type="submit"
         defaultValue="Create Game"
-      />
-    </div>
+      />    </div>
   </form>
 </section>   
     )
