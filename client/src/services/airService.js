@@ -1,10 +1,9 @@
-import {request} from './requester'
+import  *as request from './requester'
 const baseUrl = 'http://localhost:3030/jsonstore/serviceRequest'
 
 export const getAll = async  () => {
-    const askServices = request('GET', baseUrl);
-
-    console.log(askServices);
+    const result = await request.get(baseUrl); 
+    const askServices =  Object.values(result);
 
     return askServices;
 

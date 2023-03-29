@@ -10,11 +10,12 @@ import { Login} from './components/Login/Login';
 import {Register} from './components/Register/Register';
 import { Create } from './components/Create/Create';
 import { Service } from './components/Service/Service';
+import { PricePlan } from './components/PricePlan/PricePlan';
 
 
 function App() {
 
-  const [serviceAsk, setServiceAsk] = useState([]);
+  const [serviceAsks, setServiceAsk] = useState([]);
 
   useEffect(() => { 
       airService.getAll()
@@ -32,10 +33,10 @@ function App() {
     <Route path='/login' element={<Login />} />
     <Route path='/register' element={<Register />} />
     <Route path='/create' element={<Create />} />
-    <Route path='/register' element={<Register />} />
+    <Route path='/service' element={<Service serviceAsks={serviceAsks} />} />
     <Route path='/register' element={<Register />} />
   </Routes>
-  <Service />
+  {/* < PricePlan /> */}
 
    
 
