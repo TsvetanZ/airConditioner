@@ -16,6 +16,10 @@ export const Service = ({serviceAsks}) => {
              {serviceAsks.map(x => 
               <ServiceItem key={x._id} {...x} />
               )}
+
+              {serviceAsks.length === 0 &
+               <h4 >No query</h4>
+              }
           </div>
         </div>
       </div>

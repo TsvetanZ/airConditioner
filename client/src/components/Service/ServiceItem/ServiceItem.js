@@ -27,12 +27,12 @@ export const ServiceItem = ({
           </p>
           <p className="mb-2 pb-2">Easy to Use</p>
         </div>
-        <a
-          href=""
+        {/* <a
+          href="#"
           className="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle"
         >
           Order Now
-        </a>
+        </a> */}
       </div>
     </div>
     );
