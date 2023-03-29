@@ -1,5 +1,6 @@
 .imageStyle {
-    display: inline-block;
+    display: block;
     width: 100%;
+    bottom: 20px;
 
 }

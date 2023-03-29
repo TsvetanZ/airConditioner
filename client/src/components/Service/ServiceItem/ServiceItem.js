@@ -10,9 +10,9 @@ export const ServiceItem = ({
       <div className="position-relative border border-primary rounded">
         <div className="bg-primary text-center pt-5 pb-4">
           <h3 className="text-white">{name}</h3>
-          <img className={styles.imageStyle} src={imgUrl} alt="" />
         </div>
         <div className="text-center py-5">
+        <img className={styles.imageStyle} src={imgUrl} alt="" />
           <p className="border-bottom border-light mb-2 pb-2">
             HTML5 &amp; CSS3
           </p>
