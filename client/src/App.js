@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, useNavigate} from 'react-router-dom';
 
 import * as airService  from './services/airService'; 
 
@@ -10,10 +10,11 @@ import { Login} from './components/Login/Login';
 import {Register} from './components/Register/Register';
 import { Create } from './components/Create/Create';
 import { Service } from './components/Service/Service';
-import { PricePlan } from './components/PricePlan/PricePlan';
+import { Details } from './components/Details/Details';
 
 
 function App() {
+  const navigate = useNavigate();
 
   const [serviceAsks, setServiceAsk] = useState([]);
 
@@ -25,6 +26,15 @@ function App() {
         })
   },[]);
 
+  const onCreateServiceSubmit = async (data) => {
+    //console.log(data);
+    const newAskService = await airService.create(data);
+
+    setServiceAsk(state => [...state, newAskService]);
+
+    navigate('/service')
+  }
+
   return (
   <>
   <Navigation />
@@ -32,9 +42,11 @@ function App() {
     <Route path='/' element={<Home />} />
     <Route path='/login' element={<Login />} />
     <Route path='/register' element={<Register />} />
-    <Route path='/create' element={<Create />} />
+    <Route path='/create' element={<Create onCreateServiceSubmit={onCreateServiceSubmit} />} />
     <Route path='/service' element={<Service serviceAsks={serviceAsks} />} />
     <Route path='/register' element={<Register />} />
+    <Route path='/service/:serviceId' element={<Details />} />
+
   </Routes>
   {/* < PricePlan /> */}
 
@@ -59,12 +71,12 @@ function App() {
    
     < Footer />
    
-    <a
+    {/* <a
       href="#"
       className="btn btn-lg btn-secondary btn-lg-square rounded back-to-top"
     >
       <i className="bi bi-arrow-up" />
-    </a>
+    </a> */}
   
 
   </>

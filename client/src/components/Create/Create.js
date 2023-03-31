@@ -1,14 +1,14 @@
 import { useState } from "react"
 
 export const Create = ({
-  onSubmit
+  onCreateServiceSubmit
 }) => {
   const [values, setValues] = useState({
     title: '',
     category:'',
-    width: null,
-    height: null,
-    length: null,
+    width: '',
+    height: '',
+    length: '',
     imageUrl: '',
     summary: '',
   });
@@ -16,11 +16,17 @@ export const Create = ({
   const onChangeHandler = (e) => {
       setValues(state => ({...state, [e.target.name]: e.target.value}))
   };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    onCreateServiceSubmit(values);
+
+  }
   
     return (
      
   <section id="create-page" className="auth">
-  <form id="create" onSubmit={ ()=>onSubmit(values) }>
+  <form id="create" onSubmit={onSubmit}>
     <div className="container">
       <h1>Create Service</h1>
 

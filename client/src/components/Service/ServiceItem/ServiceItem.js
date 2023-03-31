@@ -1,38 +1,44 @@
+import { Link } from 'react-router-dom';
 import styles from './ServiceItem.module.css';
 export const ServiceItem = ({
-    name,
-    imgUrl,
-    genres
+  category,
+height,
+imageUrl,
+length,
+summary,
+title,
+width,
+_id
+
 
 }) => {
     return(
       <div className="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
       <div className="position-relative border border-primary rounded">
         <div className="bg-primary text-center pt-5 pb-4">
-          <h3 className="text-white">{name}</h3>
+          <h3 className="text-white">{title}</h3>
         </div>
         <div className="text-center py-5">
-        <img className={styles.imageStyle} src={imgUrl} alt="" />
+        <img className={styles.imageStyle} src={imageUrl} alt={title} />
           <p className="border-bottom border-light mb-2 pb-2">
-            HTML5 &amp; CSS3
+            {category}
           </p>
           <p className="border-bottom border-light mb-2 pb-2">
-            Bootstrap v5
+            Height{height}
           </p>
           <p className="border-bottom border-light mb-2 pb-2">
-            Responsive Layout
+            {length}
           </p>
           <p className="border-bottom border-light mb-2 pb-2">
-            Browsers Compatibility
+            Summary{summary}
           </p>
-          <p className="mb-2 pb-2">Easy to Use</p>
+          <p className="mb-2 pb-2">Width{width}</p>
         </div>
-        {/* <a
-          href="#"
+        <Link to={`/service/${_id}`} 
           className="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle"
         >
           Order Now
-        </a> */}
+        </Link>
       </div>
     </div>
     );

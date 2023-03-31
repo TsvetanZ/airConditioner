@@ -7,4 +7,18 @@ export const getAll = async  () => {
 
     return askServices;
 
+};
+
+export const getOne = async (serviceId) => {
+    const result = await request.get(`${baseUrl}/${serviceId}`)
+
+    console.log(result);
+    return result;
+}
+
+export const create = async (serviceData) => {
+    const result = await request.post(baseUrl, serviceData);
+    console.log(result);
+
+    return result;
 }
