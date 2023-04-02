@@ -11,6 +11,7 @@ import {Register} from './components/Register/Register';
 import { Create } from './components/Create/Create';
 import { Service } from './components/Service/Service';
 import { Details } from './components/Details/Details';
+import { Comments } from './components/Comments/Comments';
 
 
 function App() {
@@ -46,6 +47,8 @@ function App() {
     <Route path='/service' element={<Service serviceAsks={serviceAsks} />} />
     <Route path='/register' element={<Register />} />
     <Route path='/service/:serviceId' element={<Details />} />
+    <Route path='/service/:serviceId/coments' element={<Comments />} />
+
 
   </Routes>
   {/* < PricePlan /> */}
