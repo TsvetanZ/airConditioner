@@ -10,9 +10,8 @@ import { Comment } from "./Coment/Comment";
 export const Comments = () => {
   const {serviceId} = useParams ();
 
-  console.log('COMENT:',serviceId);
+  //console.log('COMENT:',serviceId);
   const [comments, setComents] = useState (['']);
-
 
   useEffect (()=> {
     commentService.getAll(serviceId)
@@ -34,15 +33,16 @@ export const Comments = () => {
             Testimonial
           </h5>
           <h1 className="display-5 mb-0">What People Say About Our Services</h1>
-        </div>
-        <div className="owl-carousel testimonial-carousel">
+         </div>
+        
           {comments.map(x =>
           <Comment key={x._id} {...x}   /> 
           )}
 
+
           {comments.length === 0 && <p>No comments</p>}
-         
-        </div>
+        
+        
       </div>
     </div>
     );

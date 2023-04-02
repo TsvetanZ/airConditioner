@@ -7,18 +7,19 @@ import * as commentService from '../../services/commentService'
 
 export const Details = () => {
     const [username, setUsername] = useState ('');
-    //const [comment, setComment] = useState ('') ;
-    const [comments, setComments] = useState(['']);
+    const [comment, setComment] = useState ('') ;
+    //const [comments, setComments] = useState(['']);
 
   const { serviceId } = useParams();
-   console.log('details:',serviceId);
+   //console.log('details:',serviceId);
   const [service, setServiceAsk] = useState({});
 
   useEffect(() => {
     airService.getOne(serviceId)
         .then((result) => {
+          console.log(result); // see kakwo e izliza !!!
              setServiceAsk(result);
-
+            
      // return commentService.getAll(serviceId);
     })
 
@@ -33,20 +34,20 @@ export const Details = () => {
     await commentService.create({
         serviceId,
         username,
-        comments,
+        comment,
     });
 
   
- const result = await airService.addComments ({serviceId },
+ const result = await airService.addComments (serviceId, {
     username,
-    comments,
-)
+    comment,
+});
 
-setServiceAsk(state => ({...state, comments:{...state.comments, [result._id]:result}}))
+setServiceAsk(state => ({...state, comment:{...state.comment, [result._id]:result}}))
 
-setComments(''); // по този начин ги зачиставаме или занулираме
+setComment(''); // по този начин ги зачиставаме или занулираме
 setUsername('');
-        };
+        }; 
 
 
 
@@ -72,8 +73,8 @@ setUsername('');
       <div className="details-comments">
                     <h2>Comments:</h2>
                     <ul>
-                        {/* <!-- list all comments for current game (If any) --> */}
-                        {service.comments && Object.values(comments).map(x => ( 
+                  
+                        {service.comments && Object.values(service.comments).map(x => ( 
                         <li key={x._id} className="comment">
                             <p>Content: {x.username} : {x.comment}</p>
                         </li>
@@ -82,7 +83,7 @@ setUsername('');
 
                     </ul>
                     {/* <!-- Display paragraph: If there are no games in the database --> */}
-                    <p className="no-comment">No comments.</p>
+                    {/* {  !Object.values(service.comments).length && (<p className="no-comment">No comments.</p>)} */}
                 </div>
 
       {/* <!-- Bonus -->
@@ -93,7 +94,7 @@ setUsername('');
 
             <input type="text" name="username" placeholder="George" value={username} onChange={ (e) => setUsername(e.target.value)}/>
 
-          <textarea value={comments} onChange={ (e) => setComments(e.target.value)} name="comment" placeholder="Comment......"></textarea>
+          <textarea value={comment} onChange={ (e) => setComment(e.target.value)} name="comment" placeholder="Comment......"></textarea>
           <input className="btn submit" type="submit" value="Add Comment" />
         </form>
       </article>

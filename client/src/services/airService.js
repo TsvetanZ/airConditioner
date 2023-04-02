@@ -18,7 +18,7 @@ export const getOne = async (serviceId) => {
 
 export const create = async (serviceData) => {
     const result = await request.post(baseUrl, serviceData);
-    console.log(result);
+    //console.log(result);
 
     return result;
 }
