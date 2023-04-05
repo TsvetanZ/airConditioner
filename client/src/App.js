@@ -14,6 +14,8 @@ import { Create } from "./components/Create/Create";
 import { Service } from "./components/Service/Service";
 import { Details } from "./components/Details/Details";
 import { Comments } from "./components/Comments/Comments";
+import {Logout} from './components/Logout/Logout';
+
 
 function App() {
   const navigate = useNavigate();
@@ -42,25 +44,46 @@ function App() {
     //console.log(Object.fromEntries(new FormData(e.target))) // async (e) по този начин виждаме на козолата паролата и потребителя.
     //console.log(data);
     try {
-	  const result = await authService.login(data);
-		//console.log(result);
+      const result = await authService.login(data);
+      //console.log(result);
       setAuth(result);
-	  //console.log('app:',auth)
-	  navigate('/')  //navigate('/catalog')
-	  //console.log('app1:',auth.accessToken)
+      //console.log('app:',auth)
+      navigate("/"); //navigate('/catalog')
+      //console.log('app1:',auth.accessToken)
     } catch (error) {
-		alert ("Not right password or username");
-	}
+      alert("Not right password or username");
+    }
   };
 
-  const context = {
-	onLoginSubmit,
-	userId: auth._id,
-	token: auth.accessToken,
-	userEmail: auth.email,
-	isAuthenticated: !!auth.accessToken,
-	
+  const onRegisterSubmit = async (values) => {
+    const { confirmPassword, ...registerData } = values;
+    if (confirmPassword !== registerData.password) {
+      alert("The passwords do't match. ");
+      return;
+    }
+    try {
+      const result = await authService.register(registerData);
+      setAuth(result);
+
+      navigate("/");
+    } catch (error) {
+      alert("Error registration");
+    }
+  };
+
+  const onLogout = () => {
+	setAuth({});
   }
+
+  const context = {
+    onLoginSubmit,
+    onRegisterSubmit,
+	onLogout,
+    userId: auth._id,
+    token: auth.accessToken,
+    userEmail: auth.email,
+    isAuthenticated: !!auth.accessToken,
+  };
 
   return (
     <AuthContext.Provider value={context}>
@@ -69,6 +92,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+		  <Route path="/logout" element={<Logout />} />
+
           <Route path="/register" element={<Register />} />
           <Route
             path="/create"
