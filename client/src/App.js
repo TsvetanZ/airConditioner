@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-import * as airService from "./services/airService";
+import { airServiceFactory } from "./services/airService";
+import { authServiceFactory } from "./services/authService";
+//import * as authService from "./services/authService";
 import { AuthContext } from "./contexts/AuthContext";
-import * as authService from "./services/authService";
+//import { useService } from "./hooks/userService";
 
 import { Navigation } from "./components/Navigation/Navigation";
 import { Home } from "./components/Home/Home";
@@ -14,14 +16,14 @@ import { Create } from "./components/Create/Create";
 import { Service } from "./components/Service/Service";
 import { Details } from "./components/Details/Details";
 import { Comments } from "./components/Comments/Comments";
-import {Logout} from './components/Logout/Logout';
-
+import { Logout } from "./components/Logout/Logout";
 
 function App() {
   const navigate = useNavigate();
-
   const [serviceAsks, setServiceAsk] = useState([]);
   const [auth, setAuth] = useState({});
+  const airService = airServiceFactory(auth.accessToken);
+  const authService = authServiceFactory(auth.accessToken);
 
   useEffect(() => {
     airService.getAll().then((result) => {
@@ -72,15 +74,16 @@ function App() {
   };
 
   const onLogout = async () => {
-    //TODO : authorized request
-   //await authService.logout();
-	setAuth({});
-  }
+    await authService.logout(); //authorized request
+    //await authServiceFactory.logout(); //authorized request
+
+    setAuth({});
+  };
 
   const context = {
     onLoginSubmit,
     onRegisterSubmit,
-	onLogout,
+    onLogout,
     userId: auth._id,
     token: auth.accessToken,
     userEmail: auth.email,
@@ -94,7 +97,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-		  <Route path="/logout" element={<Logout />} />
+          <Route path="/logout" element={<Logout />} />
 
           <Route path="/register" element={<Register />} />
           <Route
