@@ -15,6 +15,7 @@ import { Register } from "./components/Register/Register";
 import { Create } from "./components/Create/Create";
 import { Service } from "./components/Service/Service";
 import { Details } from "./components/Details/Details";
+import { Edit } from "./components/Edit/Edit";
 import { Comments } from "./components/Comments/Comments";
 import { Logout } from "./components/Logout/Logout";
 
@@ -80,6 +81,14 @@ function App() {
     setAuth({});
   };
 
+  const onServiceEditSubmit = async (values) => {
+      const result = await airService.edit(values._id, values);
+
+      setServiceAsk(state => state.map(x => x._id===values.id ? result : x));
+
+      navigate(`/service/${values._id}`);
+  }
+
   const context = {
     onLoginSubmit,
     onRegisterSubmit,
@@ -104,12 +113,14 @@ function App() {
             path="/create"
             element={<Create onCreateServiceSubmit={onCreateServiceSubmit} />}
           />
+        
           <Route
             path="/service"
             element={<Service serviceAsks={serviceAsks} />}
           />
           <Route path="/register" element={<Register />} />
           <Route path="/service/:serviceId" element={<Details />} />
+          <Route path="/service/:serviceId/edit" element={<Edit onServiceEditSubmit={onServiceEditSubmit}/>} />
           <Route path="/service/:serviceId/coments" element={<Comments />} />
         </Routes>
         {/* < PricePlan /> */}

@@ -36,20 +36,19 @@ export const Create = ({
               <option value="Gree">Gree</option>
               <option value="Panasonic">Panasonic</option>
               <option value="Mitsubishi">Mitsubishi</option>
-              <option value="Lg">LG</option>
+              <option value="LG">LG</option>
               <option value="Daikin">Daikin</option>
       </select> 
 
       <label htmlFor="category">Category:</label>
       <select value={values.category} onChange={changeHandler} id="category" name="category"  >
-      <option value="gree">Gree</option>
               <option value="Wall-mounted">Wall mounted air conditioner</option>
               <option value="Floor">Floor air conditioner</option>
               <option value="Ceiling">Ceiling air conditioner</option>
               <option value="Multiple Split Systems">Multiple Split Systems</option>
       </select>
         <div className="roomSize">
-          <h6>Room size</h6>
+          <h3>Room size</h3>
           <p>Enter the values in meters</p>
           <label htmlFor="width">Width:</label>
           <input value={values.width} onChange={changeHandler} type="number" id="width" name="width" placeholder={4} />
@@ -69,13 +68,18 @@ export const Create = ({
         name="imageUrl"
         placeholder="Upload a photo..."
       />
-      <label htmlFor="summary">Address:</label>
-      <textarea value={values.summary} onChange={changeHandler} name="summary" id="summary" defaultValue={""} />
-      <input 
-        className="btn submit"
-        type="submit"
-        defaultValue="Create Game"
-      />    </div>
+        {/* <div className="adress">
+          <h4>Adresse</h4>
+        <label htmlFor="leg-title">City/Towm:</label>
+      <input type="text" id="title" name="city" defaultValue="" />
+        </div> */}
+
+      <label htmlFor="summary">Note:</label>
+      <textarea value={values.summary} onChange={changeHandler} name="summary" id="summary" defaulValue={""} />
+
+
+      <input className="btn submit" type="submit" value="Create Game"/>  
+    </div>
   </form>
 </section>   
     )

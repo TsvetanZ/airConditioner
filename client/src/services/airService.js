@@ -30,7 +30,9 @@ const baseUrl = 'http://localhost:3030/data/serviceRequest'
        return result;
     };
 
-    const deleteService = async (serviceId)=> request.delete(`${baseUrl}/${serviceId}`)
+    const deleteService = async (serviceId)=> request.delete(`${baseUrl}/${serviceId}`);
+
+    const edit = async (serviceId, data) => request.put(`${baseUrl}/${serviceId}`, data);
         
 
 
@@ -40,5 +42,6 @@ const baseUrl = 'http://localhost:3030/data/serviceRequest'
         create,
         addComments,
         delete: deleteService,
+        edit,
     }
 }
