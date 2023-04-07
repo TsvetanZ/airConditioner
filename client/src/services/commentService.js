@@ -1,7 +1,7 @@
 import {requestFactory} from './requester';
 
 
-const baseUrl = 'http://localhost:3030/jsonstore/comments';
+const baseUrl = 'http://localhost:3030/data/comments';
 
 export const getAll = async (serviceId) => {
     
@@ -24,4 +24,11 @@ export const create = async (data) => {
 
         return result;
 };
+
+
+// const addComments = async (serviceId, data) => {
+//     const result = await request.post(`${baseUrl}/${serviceId}/comments`, data);
+
+//    return result;
+// };
 

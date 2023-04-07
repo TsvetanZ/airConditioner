@@ -24,11 +24,11 @@ const baseUrl = 'http://localhost:3030/data/serviceRequest'
         return result;
     };
     
-     const addComments = async (serviceId, data) => {
-        const result = await request.post(`${baseUrl}/${serviceId}/comments`, data);
+    //  const addComments = async (serviceId, data) => {
+    //     const result = await request.post(`${baseUrl}/${serviceId}/comments`, data);
 
-       return result;
-    };
+    //    return result;
+    // };
 
     const deleteService = async (serviceId)=> request.delete(`${baseUrl}/${serviceId}`);
 
@@ -40,7 +40,7 @@ const baseUrl = 'http://localhost:3030/data/serviceRequest'
         getAll,
         getOne,
         create,
-        addComments,
+        //addComments,
         delete: deleteService,
         edit,
     }
