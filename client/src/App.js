@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 import { airServiceFactory } from "./services/airService";
-import { authServiceFactory } from "./services/authService";
+//import { authServiceFactory } from "./services/authService"; // about move logic other provider
 //import * as authService from "./services/authService";
 import { AuthContext } from "./contexts/AuthContext";
 //import { useService } from "./hooks/userService";
+import { AuthProvider } from "./contexts/AuthContext";
 
 import { Navigation } from "./components/Navigation/Navigation";
 import { Home } from "./components/Home/Home";
@@ -22,9 +23,9 @@ import { Logout } from "./components/Logout/Logout";
 function App() {
   const navigate = useNavigate();
   const [serviceAsks, setServiceAsk] = useState([]);
-  const [auth, setAuth] = useState({});
-  const airService = airServiceFactory(auth.accessToken);
-  const authService = authServiceFactory(auth.accessToken);
+  //const [auth, setAuth] = useState({});
+  const airService = airServiceFactory();//(auth.accessToken);
+  //const authService = authServiceFactory(auth.accessToken);
 
   useEffect(() => {
     airService.getAll().then((result) => {
@@ -42,44 +43,44 @@ function App() {
     navigate("/service");
   };
 
-  const onLoginSubmit = async (data) => {
-    //e.preventDefault();
-    //console.log(Object.fromEntries(new FormData(e.target))) // async (e) по този начин виждаме на козолата паролата и потребителя.
-    //console.log(data);
-    try {
-      const result = await authService.login(data);
-      //console.log(result);
-      setAuth(result);
-      //console.log('app:',auth)
-      navigate("/"); //navigate('/catalog')
-      //console.log('app1:',auth.accessToken)
-    } catch (error) {
-      alert("Not right password or username");
-    }
-  };
+  // const onLoginSubmit = async (data) => {
+  //   //e.preventDefault();
+  //   //console.log(Object.fromEntries(new FormData(e.target))) // async (e) по този начин виждаме на козолата паролата и потребителя.
+  //   //console.log(data);
+  //   try {
+  //     const result = await authService.login(data);
+  //     //console.log(result);
+  //     setAuth(result);
+  //     //console.log('app:',auth)
+  //     navigate("/"); //navigate('/catalog')
+  //     //console.log('app1:',auth.accessToken)
+  //   } catch (error) {
+  //     alert("Not right password or username");
+  //   }
+  // };
 
-  const onRegisterSubmit = async (values) => {
-    const { confirmPassword, ...registerData } = values;
-    if (confirmPassword !== registerData.password) {
-      alert("The passwords do't match. ");
-      return;
-    }
-    try {
-      const result = await authService.register(registerData);
-      setAuth(result);
+  // const onRegisterSubmit = async (values) => {
+  //   const { confirmPassword, ...registerData } = values;
+  //   if (confirmPassword !== registerData.password) {
+  //     alert("The passwords do't match. ");
+  //     return;
+  //   }
+  //   try {
+  //     const result = await authService.register(registerData);
+  //     setAuth(result);
 
-      navigate("/");
-    } catch (error) {
-      alert("Error registration");
-    }
-  };
+  //     navigate("/");
+  //   } catch (error) {
+  //     alert("Error registration");
+  //   }
+  // };
 
-  const onLogout = async () => {
-    await authService.logout(); //authorized request
-    //await authServiceFactory.logout(); //authorized request
+  // const onLogout = async () => {
+  //   await authService.logout(); //authorized request
+  //   //await authServiceFactory.logout(); //authorized request
 
-    setAuth({});
-  };
+  //   setAuth({});
+  // };
 
   const onServiceEditSubmit = async (values) => {
       const result = await airService.edit(values._id, values);
@@ -89,18 +90,18 @@ function App() {
       navigate(`/service/${values._id}`);
   }
 
-  const context = {
-    onLoginSubmit,
-    onRegisterSubmit,
-    onLogout,
-    userId: auth._id,
-    token: auth.accessToken,
-    userEmail: auth.email,
-    isAuthenticated: !!auth.accessToken,
-  };
+  // const context = {
+  //   onLoginSubmit,
+  //   onRegisterSubmit,
+  //   onLogout,
+  //   userId: auth._id,
+  //   token: auth.accessToken,
+  //   userEmail: auth.email,
+  //   isAuthenticated: !!auth.accessToken,
+  // };
 
   return (
-    <AuthContext.Provider value={context}>
+    <AuthProvider >
       <>
         <Navigation />
         <Routes>
@@ -150,7 +151,7 @@ function App() {
       <i className="bi bi-arrow-up" />
     </a> */}
       </>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
 
