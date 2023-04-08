@@ -38,10 +38,16 @@ export const AirServiceProvider = ({
               navigate(`/service/${values._id}`);
           }
 
+          const deleteAirService = async (serviceId) => {
+         setServiceAsk(state => state.filter(serviceAsks => serviceAsks._id !== serviceId ));
+
+          };
+
           const contextValues = {
             serviceAsks,
             onCreateServiceSubmit,
             onServiceEditSubmit,
+            deleteAirService,
           }
 
     return (

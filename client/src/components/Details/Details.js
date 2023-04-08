@@ -8,6 +8,7 @@ import * as commentService from "../../services/commentService";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { AddComment } from "./addComment/AddComment";
 import { serviceReducer } from "../../reducers/serviceReducer";
+import { useAirServiceContext } from "../../contexts/AirServiceContext";
 
 
 
@@ -16,6 +17,7 @@ export const Details = () => {
   //const [username, setUsername] = useState("");
   //const [comment, setComment] = useState("");
   const { serviceId } = useParams(); //console.log('IDSER:',serviceId) work
+  const { deleteAirService } = useAirServiceContext();//????????????????????
   
   const navigate = useNavigate();
   const [service, dispatch] = useReducer(serviceReducer, {}); // this change const [service, setServiceAsk] = useState({});
@@ -91,11 +93,16 @@ export const Details = () => {
   const isOwner = service._ownerId === userId; // console.log(isOwner);
 
   const onDeleteClick = async () => {
-    //confirm("Do you sure delete!");
-    await airService.delete(service._id);
-// to delete from state
-    navigate('/service');
+    // eslint-disable-next-line no-restricted-globals
+    const message = confirm(`Are you sure you want to delete ${service.title}`);
 
+    if(message) {
+
+       await airService.delete(service._id);
+       deleteAirService(service._id)
+       navigate('/service');
+    }
+   
   }
 
   return (

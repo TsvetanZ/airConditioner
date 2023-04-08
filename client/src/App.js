@@ -133,8 +133,9 @@ function App() {
                  <Route path="/service/:serviceId" element={<Details />} />
                  {/* <Route path="/service/:serviceId/edit" element={<Edit onServiceEditSubmit={onServiceEditSubmit}/>} /> */}
                  <Route path="/service/:serviceId/edit" element={<Edit />} />
+            <Route path="/service/:serviceId/coments" element={<Comments />} />     
           </Route>
-          <Route path="/service/:serviceId/coments" element={<Comments />} />
+          
         </Routes>
         {/* < PricePlan /> */}
 
