@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+//import { useEffect, useState } from "react";
+//import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
-import { airServiceFactory } from "./services/airService";
+// import { airServiceFactory } from "./services/airService";
 //import { authServiceFactory } from "./services/authService"; // about move logic other provider
 //import * as authService from "./services/authService";
 //import { AuthContext } from "./contexts/AuthContext";
 //import { useService } from "./hooks/userService";
 import { AuthProvider } from "./contexts/AuthContext";
+import { AirServiceProvider } from './contexts/AirServiceContext';
 
 import { Navigation } from "./components/Navigation/Navigation";
 import { Home } from "./components/Home/Home";
@@ -22,87 +24,88 @@ import { Logout } from "./components/Logout/Logout";
 import { RouteGuard } from "./components/common/RouteGuard";
 
 function App() {
-  const navigate = useNavigate();
-  const [serviceAsks, setServiceAsk] = useState([]);
-  //const [auth, setAuth] = useState({});
-  const airService = airServiceFactory();//(auth.accessToken);
+ // const navigate = useNavigate();
+  // const [serviceAsks, setServiceAsk] = useState([]);
+  // //const [auth, setAuth] = useState({});
+  // const airService = airServiceFactory();//(auth.accessToken);
   //const authService = authServiceFactory(auth.accessToken);
 
-  useEffect(() => {
-    airService.getAll().then((result) => {
-      //console.log(result);
-      setServiceAsk(result);
-    });
-  }, []);
-
-  const onCreateServiceSubmit = async (data) => {
-    //console.log(data);
-    const newAskService = await airService.create(data);
-
-    setServiceAsk((state) => [...state, newAskService]);
-
-    navigate("/service");
-  };
-
-  // const onLoginSubmit = async (data) => {
-  //   //e.preventDefault();
-  //   //console.log(Object.fromEntries(new FormData(e.target))) // async (e) по този начин виждаме на козолата паролата и потребителя.
-  //   //console.log(data);
-  //   try {
-  //     const result = await authService.login(data);
+  // useEffect(() => {
+  //   airService.getAll().then((result) => {
   //     //console.log(result);
-  //     setAuth(result);
-  //     //console.log('app:',auth)
-  //     navigate("/"); //navigate('/catalog')
-  //     //console.log('app1:',auth.accessToken)
-  //   } catch (error) {
-  //     alert("Not right password or username");
-  //   }
+  //     setServiceAsk(result);
+  //   });
+  // }, []);
+
+  // const onCreateServiceSubmit = async (data) => {
+  //   //console.log(data);
+  //   const newAskService = await airService.create(data);
+
+  //   setServiceAsk((state) => [...state, newAskService]);
+
+  //   navigate("/service");
   // };
 
-  // const onRegisterSubmit = async (values) => {
-  //   const { confirmPassword, ...registerData } = values;
-  //   if (confirmPassword !== registerData.password) {
-  //     alert("The passwords do't match. ");
-  //     return;
-  //   }
-  //   try {
-  //     const result = await authService.register(registerData);
-  //     setAuth(result);
+  // // const onLoginSubmit = async (data) => {
+  // //   //e.preventDefault();
+  // //   //console.log(Object.fromEntries(new FormData(e.target))) // async (e) по този начин виждаме на козолата паролата и потребителя.
+  // //   //console.log(data);
+  // //   try {
+  // //     const result = await authService.login(data);
+  // //     //console.log(result);
+  // //     setAuth(result);
+  // //     //console.log('app:',auth)
+  // //     navigate("/"); //navigate('/catalog')
+  // //     //console.log('app1:',auth.accessToken)
+  // //   } catch (error) {
+  // //     alert("Not right password or username");
+  // //   }
+  // // };
 
-  //     navigate("/");
-  //   } catch (error) {
-  //     alert("Error registration");
-  //   }
-  // };
+  // // const onRegisterSubmit = async (values) => {
+  // //   const { confirmPassword, ...registerData } = values;
+  // //   if (confirmPassword !== registerData.password) {
+  // //     alert("The passwords do't match. ");
+  // //     return;
+  // //   }
+  // //   try {
+  // //     const result = await authService.register(registerData);
+  // //     setAuth(result);
 
-  // const onLogout = async () => {
-  //   await authService.logout(); //authorized request
-  //   //await authServiceFactory.logout(); //authorized request
+  // //     navigate("/");
+  // //   } catch (error) {
+  // //     alert("Error registration");
+  // //   }
+  // // };
 
-  //   setAuth({});
-  // };
+  // // const onLogout = async () => {
+  // //   await authService.logout(); //authorized request
+  // //   //await authServiceFactory.logout(); //authorized request
 
-  const onServiceEditSubmit = async (values) => {
-      const result = await airService.edit(values._id, values);
+  // //   setAuth({});
+  // // };
 
-      setServiceAsk(state => state.map(x => x._id===values.id ? result : x));
+  // const onServiceEditSubmit = async (values) => {
+  //     const result = await airService.edit(values._id, values);
 
-      navigate(`/service/${values._id}`);
-  }
+  //     setServiceAsk(state => state.map(x => x._id===values.id ? result : x));
 
-  // const context = {
-  //   onLoginSubmit,
-  //   onRegisterSubmit,
-  //   onLogout,
-  //   userId: auth._id,
-  //   token: auth.accessToken,
-  //   userEmail: auth.email,
-  //   isAuthenticated: !!auth.accessToken,
-  // };
+  //     navigate(`/service/${values._id}`);
+  // }
+
+  // // const context = {
+  // //   onLoginSubmit,
+  // //   onRegisterSubmit,
+  // //   onLogout,
+  // //   userId: auth._id,
+  // //   token: auth.accessToken,
+  // //   userEmail: auth.email,
+  // //   isAuthenticated: !!auth.accessToken,
+  // // };
 
   return (
     <AuthProvider >
+      <AirServiceProvider>
       <>
         <Navigation />
         <Routes>
@@ -110,24 +113,26 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<Register />} />
-          
-          <Route
-            path="/create"
-            element={
-            //<RouteGuard>
-            <Create onCreateServiceSubmit={onCreateServiceSubmit} />}
-            // </RouteGuard>}
-          />
+          {/* <Route path="/create" element={<Create onCreateServiceSubmit={onCreateServiceSubmit} />} /> */}
+                   
+          {/* <Route path="/create" element={
+              <RouteGuard>
+                <Create  />
+             </RouteGuard>}
+          /> */}
         
-          <Route
+          {/* <Route
             path="/service"
-            element={<Service serviceAsks={serviceAsks} />}
-          />
+            element={<Service />}
+            // element={<Service serviceAsks={serviceAsks} />}
+          /> */}
+           <Route path="/service" element={<Service />} />
 
-          <Route element={<RouteGuard />}>
-          ``<Route path="/register" element={<Register />} />
-         `` <Route path="/service/:serviceId" element={<Details />} />
-            <Route path="/service/:serviceId/edit" element={<Edit onServiceEditSubmit={onServiceEditSubmit}/>} />
+          <Route element={<RouteGuard />} >
+                <Route path="/create" element={ <Create/> } />
+                 <Route path="/service/:serviceId" element={<Details />} />
+                 {/* <Route path="/service/:serviceId/edit" element={<Edit onServiceEditSubmit={onServiceEditSubmit}/>} /> */}
+                 <Route path="/service/:serviceId/edit" element={<Edit />} />
           </Route>
           <Route path="/service/:serviceId/coments" element={<Comments />} />
         </Routes>
@@ -158,6 +163,7 @@ function App() {
       <i className="bi bi-arrow-up" />
     </a> */}
       </>
+      </AirServiceProvider>
     </AuthProvider>
   );
 }

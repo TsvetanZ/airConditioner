@@ -1,5 +1,8 @@
+import { useAirServiceContext } from "../../contexts/AirServiceContext";
 import { ServiceItem } from "./ServiceItem/ServiceItem";
-export const Service = ({serviceAsks}) => {
+export const Service = () => {
+// export const Service = ({serviceAsks}) => {
+  const {serviceAsks} = useAirServiceContext();
     return(
         <div className="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div className="container">

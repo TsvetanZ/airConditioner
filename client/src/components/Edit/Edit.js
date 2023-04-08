@@ -4,10 +4,10 @@ import { useParams } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import { useService } from "../../hooks/useService";
 import { airServiceFactory } from "../../services/airService";
+import { useAirServiceContext } from "../../contexts/AirServiceContext";
 
-export const Edit = ({
-  onServiceEditSubmit,
-}) => {
+export const Edit = () => {
+  const {onServiceEditSubmit} = useAirServiceContext();
   const {serviceId} = useParams();
   const airService = useService(airServiceFactory);
   const { values, changeHandler, onSubmit, changeValues} = useForm({

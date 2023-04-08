@@ -1,10 +1,11 @@
 //import { useState } from "react";
 
+import { useAirServiceContext } from "../../contexts/AirServiceContext";
 import { useForm } from "../../hooks/useForm";
 
-export const Create = ({
-  onCreateServiceSubmit
-}) => {
+export const Create = () => {
+// export const Create = ({ onCreateServiceSubmit }) => {
+  const { onCreateServiceSubmit } = useAirServiceContext();
   const {values, changeHandler, onSubmit} = useForm({
     title: '',
     category:'',

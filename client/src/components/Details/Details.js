@@ -1,4 +1,4 @@
-import {  useEffect, useState, useReducer } from "react";
+import {  useEffect, useReducer } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 import { airServiceFactory } from "../../services/airService";
@@ -7,10 +7,9 @@ import * as commentService from "../../services/commentService";
 // import { Comments } from "../Comments/Comments";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { AddComment } from "./addComment/AddComment";
+import { serviceReducer } from "../../reducers/serviceReducer";
 
-//const serviceReducer = (value) => {
 
-//}
 
 export const Details = () => {
   const { userId, isAuthenticated, userEmail } = useAuthContext();
@@ -19,10 +18,7 @@ export const Details = () => {
   const { serviceId } = useParams(); //console.log('IDSER:',serviceId) work
   
   const navigate = useNavigate();
-  //const [state, dispatch] = useReducer(serviceReducer, {})
-
-  
-  const [service, setServiceAsk] = useState({});
+  const [service, dispatch] = useReducer(serviceReducer, {}); // this change const [service, setServiceAsk] = useState({});
   const airService = useService(airServiceFactory);
 
   useEffect(() => {
@@ -30,12 +26,17 @@ export const Details = () => {
       airService.getOne(serviceId),
       commentService.getAll(serviceId),
     ])
-
+   
     .then(([serviceData, comments]) => {
-      //dispatch('Pesho');
-      setServiceAsk({
-        ...serviceData, comments});
-    })
+      const serviceState = {
+        ...serviceData,
+        comments,
+      };
+      dispatch({type: 'FETCH SERVICE', payload: serviceState});
+
+      // dispatch({  //setServiceAsk({
+      //   ...serviceData, comments});
+    });
 
     // airService.getOne(serviceId).then((result) => {
     //   //console.log(result); // see kakwo e izliza !!!
@@ -45,25 +46,32 @@ export const Details = () => {
     // .then((result) => {
     //     setComments(result);
     // })
-  }, [serviceId]);
+  }, [serviceId]); 
 
   const onCommentSubmit = async (values) => {
     
     const response =await commentService.create(serviceId, values.comment);
    // console.log('HHH:',response);
 
-   setServiceAsk (state => ({
-    ...state, 
-    comments: [
-      ...state.comments,
-      {
-        ...response,
-        author: {
-          email: userEmail,
-        }
-      }
-    ]
-   }));
+    dispatch({
+      type:'COMMENT_ADD',
+      payload: response,
+      userEmail,
+    });
+
+  // THIS function is changed fron ../../reducers/serviceReducer";
+  //  setServiceAsk (state => ({
+  //   ...state, 
+  //   comments: [
+  //     ...state.comments,
+  //     {
+  //       ...response,
+  //       author: {
+  //         email: userEmail,
+  //       }
+  //     }
+  //   ]
+  //  }));
 
 
     // const result = await airService.addComments(serviceId, {
