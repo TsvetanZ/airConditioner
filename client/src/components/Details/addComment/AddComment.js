@@ -1,5 +1,6 @@
 import { useForm } from "../../../hooks/useForm";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
+import './Comments.css'
 
 export const AddComment = ({
     onCommentSubmit
@@ -23,7 +24,7 @@ export const AddComment = ({
           name="comment"
           placeholder="Comment......"
         ></textarea>
-        <input className="btn submit" type="submit" value="Add Comment" />
+        <input className="submit btn btn-primary px-4" type="submit" value="Add Comment" />
       </form>
 
       {/* <Link

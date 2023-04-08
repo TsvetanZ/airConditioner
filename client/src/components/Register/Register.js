@@ -22,6 +22,7 @@ export const Register = () => {
         <h1>Register</h1>
         <label htmlFor="email">Email:</label>
         <input
+         className="form-control border-white p-3"
           type="email"
           id="email"
           name="email"
@@ -31,6 +32,7 @@ export const Register = () => {
         />
         <label htmlFor="pass">Password:</label>
         <input 
+         className="form-control border-white p-3"
         type="password"
          name="password" 
          id="register-password" 
@@ -39,13 +41,14 @@ export const Register = () => {
          />
         <label htmlFor="con-pass">Confirm Password:</label>
         <input
+         className="form-control border-white p-3"
         type="password"
         name="confirmPassword"
         id="confirm-password"
         value={values.confirmPassword}
         onChange={changeHandler} 
          />
-        <input className="btn submit" type="submit" value="Register" />
+        <input className="btn submit btn btn-primary px-4" type="submit" value="Register" />
         <p className="field">
           <span>
             If you already have profile click <Link to="/login">here</Link>

@@ -23,8 +23,12 @@ export const Login = () => {
               <div className="container">
                   <div className="brand-logo"></div>
                   <h1>Login</h1>
+
+                 
+
                   <label htmlFor="email">Email:</label>
                   <input
+                      className="form-control border-white p-3"
                       type="email"
                       id="email"
                       placeholder="Sokka@gmail.com"
@@ -35,13 +39,14 @@ export const Login = () => {
 
                   <label htmlFor="login-pass">Password:</label>
                   <input
+                      className="form-control border-white p-3"
                       type="password"
                       id="login-password"
                       name={LoginFormKeys.Password}
                       value={values[LoginFormKeys.Password]}
                       onChange={changeHandler}
                   />
-                  <input type="submit" className="btn submit" value="Login" />
+                  <input type="submit" className="btn submit btn btn-primary px-4"value="Login" />
                   <p className="field">
                       <span>If you don't have profile click <Link to="/register">here</Link></span>
                   </p>

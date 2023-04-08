@@ -9,6 +9,8 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { AddComment } from "./addComment/AddComment";
 import { serviceReducer } from "../../reducers/serviceReducer";
 import { useAirServiceContext } from "../../contexts/AirServiceContext";
+import './Details.css';
+
 
 
 
@@ -116,21 +118,26 @@ export const Details = () => {
             alt={service.title}
           />
           <h1>{service.title}</h1>
-          <span className="levels">{service.category}</span>
-          <p className="type">
-            {service.height},{service.width},{service.length}
-          </p>
+          <p className="levels">Category:{service.category}</p>
+
+          <h3>Room</h3>
+          <p className="text">Height: {service.height} m</p>
+
+          <p className="text">Width: {service.width} m</p>
+          <p className="text">Length: {service.length} m</p>
+
+
         </div>
-        <p className="text"> {service.summary}</p>
+        <p className="text">Note: {service.summary}</p>
       </div>
 
       <div className="details-comments">
         <h2>Comments:</h2>
         <ul>
           {service.comments && service.comments.map((x) => (
-              <li key={x._id} className="comment">
+              <li key={x._id} className="form-control border-white p-3">
                 <p>
-                  Content: {x.author.email} : {x.comment}
+                   {x.author.email} : {x.comment}
                 </p>
               </li>
             ))}
@@ -143,10 +150,10 @@ export const Details = () => {
 
       {isOwner && (
         <div className="buttons">
-          <Link to={`/service/${service._id}/edit`} className="button">
+          <Link to={`/service/${service._id}/edit`}  className="btn submit btn btn-primary px-4">
             Edit
           </Link>
-          <button className="button" onClick={onDeleteClick}>Delete</button>
+          <button className="btn submit btn btn-primary px-4" onClick={onDeleteClick}>Delete</button>
         </div>
       )}
 

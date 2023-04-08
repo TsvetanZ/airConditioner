@@ -69,8 +69,8 @@
     float: left;
     margin-left: 15px;
     margin-right: 22px;
-    height: 220px;
-    border-radius: 50%;
+    height: 320px;
+    border-radius: 10px;
     box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.5);
 }
 
@@ -124,3 +124,17 @@
     color: white;
 }
 
+.btn-primary {
+        margin-left:10px;
+        border-radius: 5px;
+}
+
+.form-control.border-white {
+    color: #fff;
+    background-color: #6f5d9c;
+    font-size: 21px;
+    height: 15%;
+    text-align: center;
+    font-weight: 700;
+  
+}

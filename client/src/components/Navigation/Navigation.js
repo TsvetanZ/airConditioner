@@ -27,7 +27,7 @@ export const Navigation = () => {
           <Link to={"/"} className="nav-item nav-link">
             Home
           </Link>
-          <Link to={"/about"} className="nav-item nav-link">
+          <Link to={'/about'} className="nav-item nav-link">
             About
           </Link>
           <Link to={"/service"} className="nav-item nav-link">
@@ -52,14 +52,11 @@ export const Navigation = () => {
             <Link to={"/create"} className="nav-item nav-link">
               Create
             </Link>
-            <Link to={"/service"} className="nav-item nav-link">
-              Service
-            </Link>
+          
             <Link to={"/logout"} className="nav-item nav-link">
               Logout
             </Link>
-
-            <Link to={"/contact"} className="nav-item nav-link">
+            <Link to={'/contact'} className="nav-item nav-link">
               Contact
             </Link>
 

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import bestAirConditioner from './bestAirConditioner.jpeg'
 export const Home = () => {
     return (
@@ -17,18 +18,15 @@ export const Home = () => {
                 <h1 className="display-1 text-white mb-md-4 animated zoomIn">
                   Services &amp; We give you comfort and warmth
                 </h1>
-                <a
-                  href=""
-                  className="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"
-                >
-                  Get Quote
-                </a>
-                <a
-                  href=""
-                  className="btn btn-secondary py-md-3 px-md-5 animated slideInRight"
-                >
-                  Contact Us
-                </a>
+
+                <Link to={'/service'} className="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">
+                Get Quote Air Conditionre
+                </Link>
+               
+                <Link to={'/contact'} className="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">
+                Contact Us
+                </Link>
+                
               </div>
             </div>
           </div>    

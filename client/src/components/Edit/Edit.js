@@ -5,6 +5,7 @@ import { useForm } from "../../hooks/useForm";
 import { useService } from "../../hooks/useService";
 import { airServiceFactory } from "../../services/airService";
 import { useAirServiceContext } from "../../contexts/AirServiceContext";
+import './Edit.css'
 
 export const Edit = () => {
   const {onServiceEditSubmit} = useAirServiceContext();

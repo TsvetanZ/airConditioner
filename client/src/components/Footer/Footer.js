@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 export const Footer =() => {
     return (
         <div
@@ -108,7 +109,7 @@ export const Footer =() => {
                     className="form-control border-white p-3"
                     placeholder="Your Email"
                   />
-                  <button className="btn btn-primary px-4">Sign Up</button>
+                  <Link to={'/login'} className="btn btn-primary px-4">Sign Up</Link>
                 </div>
               </form>
             </div>

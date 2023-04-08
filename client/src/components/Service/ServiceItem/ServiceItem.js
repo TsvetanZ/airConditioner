@@ -37,7 +37,7 @@ _id
         <Link to={`/service/${_id}`} 
           className="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle"
         >
-          Order Now
+          Details
         </Link>
       </div>
     </div>

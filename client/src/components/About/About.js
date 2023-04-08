@@ -8,7 +8,7 @@ export const About = () => {
               <img
                 className="position-absolute w-100 h-100 rounded wow zoomIn"
                 data-wow-delay="0.3s"
-                src="img/about.jpg"
+                src="https://media.istockphoto.com/id/1404189146/photo/technician-checking-the-operation-of-the-air-conditioner.webp?s=2048x2048&w=is&k=20&c=BJEZya5FF4gsegSE4suE2Gss6OeDAdNRlBH1fRfB4YA="
                 style={{ objectFit: "cover" }}
               />
             </div>
@@ -22,7 +22,7 @@ export const About = () => {
                 About Us
               </h5>
               <h1 className="display-5 mb-0">
-                We Offers Quality CCTV Systems &amp; Services
+                We Offers Quality Air Conditioner Systems &amp; Services
               </h1>
             </div>
             <h4 className="text-body fst-italic mb-4">

@@ -22,6 +22,8 @@ import { Edit } from "./components/Edit/Edit";
 import { Comments } from "./components/Comments/Comments";
 import { Logout } from "./components/Logout/Logout";
 import { RouteGuard } from "./components/common/RouteGuard";
+import { About } from "./components/About/About";
+import { Contact } from "./components/Contact/Contact";
 
 function App() {
  // const navigate = useNavigate();
@@ -110,6 +112,8 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<Register />} />

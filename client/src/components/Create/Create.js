@@ -2,6 +2,7 @@
 
 import { useAirServiceContext } from "../../contexts/AirServiceContext";
 import { useForm } from "../../hooks/useForm";
+import './Create.css'
 
 export const Create = () => {
 // export const Create = ({ onCreateServiceSubmit }) => {
@@ -32,8 +33,8 @@ export const Create = () => {
     <div className="container">
       <h1>Create Service</h1>
 
-      <label htmlFor="leg-title">Name air conditioner:</label>
-      <select value={values.title} onChange={changeHandler} id="title" name="title">
+      <label htmlFor="leg-title" className="label-text"  >Name air conditioner:</label>
+      <select value={values.title} onChange={changeHandler} id="title" name="title" className="option-box">
               <option value="Gree">Gree</option>
               <option value="Panasonic">Panasonic</option>
               <option value="Mitsubishi">Mitsubishi</option>
@@ -41,8 +42,8 @@ export const Create = () => {
               <option value="Daikin">Daikin</option>
       </select> 
 
-      <label htmlFor="category">Category:</label>
-      <select value={values.category} onChange={changeHandler} id="category" name="category"  >
+      <label htmlFor="category" className="label-text" >Category:</label>
+      <select value={values.category} onChange={changeHandler} id="category" name="category" className="option-box" >
               <option value="Wall-mounted">Wall mounted air conditioner</option>
               <option value="Floor">Floor air conditioner</option>
               <option value="Ceiling">Ceiling air conditioner</option>
@@ -50,15 +51,15 @@ export const Create = () => {
       </select>
         <div className="roomSize">
           <h3>Room size</h3>
-          <p>Enter the values in meters</p>
-          <label htmlFor="width">Width:</label>
-          <input value={values.width} onChange={changeHandler} type="number" id="width" name="width" placeholder={4} />
+          <p className="label-text" >Enter the values in meters</p>
+          <label htmlFor="width" className="label-text" >Width:</label>
+          <input value={values.width} onChange={changeHandler} type="number" id="width" name="width" className="option-box" />
 
-          <label htmlFor="height">Higth:</label>
-          <input value={values.height} onChange={changeHandler} type="number" id="height" name="height" placeholder={2.8} />
+          <label htmlFor="height" className="label-text">Higth:</label>
+          <input value={values.height} onChange={changeHandler} type="number" id="height" name="height" className="option-box" />
 
-          <label htmlFor="lenght">Length:</label>
-          <input value={values.length} onChange={changeHandler} type="number" id="length" name="length" placeholder={2.8} />
+          <label htmlFor="lenght" className="label-text">Length:</label>
+          <input value={values.length} onChange={changeHandler} type="number" id="length" name="length" className="option-box" />
 
         </div>
          

@@ -13,7 +13,7 @@ export const Service = () => {
             >
               Services
             </h5>
-            <h1 className="display-5 mb-0">Our Excellent CCTV Security Services</h1>
+            <h1 className="display-5 mb-0">Our Excellent Air Conditioner Services</h1>
           </div>
           <div className="row g-5">
              {serviceAsks.map(x => 
