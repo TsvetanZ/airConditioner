@@ -1,55 +1,83 @@
-import { useContext, useEffect, useState } from "react";
+import {  useEffect, useState, useReducer } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 import { airServiceFactory } from "../../services/airService";
 import { useService } from "../../hooks/useService";
 import * as commentService from "../../services/commentService";
-import { AuthContext } from "../../contexts/AuthContext";
 // import { Comments } from "../Comments/Comments";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { AddComment } from "./addComment/AddComment";
+
+//const serviceReducer = (value) => {
+
+//}
 
 export const Details = () => {
-  const { userId } = useContext(AuthContext);
-  const [username, setUsername] = useState("");
-  const [comment, setComment] = useState("");
+  const { userId, isAuthenticated, userEmail } = useAuthContext();
+  //const [username, setUsername] = useState("");
+  //const [comment, setComment] = useState("");
   const { serviceId } = useParams(); //console.log('IDSER:',serviceId) work
+  
   const navigate = useNavigate();
+  //const [state, dispatch] = useReducer(serviceReducer, {})
 
   
   const [service, setServiceAsk] = useState({});
   const airService = useService(airServiceFactory);
 
   useEffect(() => {
-    airService.getOne(serviceId).then((result) => {
-      //console.log(result); // see kakwo e izliza !!!
-      setServiceAsk(result);
-      // return commentService.getAll(serviceId);
-    });
+    Promise.all ([
+      airService.getOne(serviceId),
+      commentService.getAll(serviceId),
+    ])
+
+    .then(([serviceData, comments]) => {
+      //dispatch('Pesho');
+      setServiceAsk({
+        ...serviceData, comments});
+    })
+
+    // airService.getOne(serviceId).then((result) => {
+    //   //console.log(result); // see kakwo e izliza !!!
+    //   setServiceAsk(result);
+    //   // return commentService.getAll(serviceId);
+    // });
     // .then((result) => {
     //     setComments(result);
     // })
   }, [serviceId]);
 
-  const onCommentSubmit = async (e) => {
-    e.preventDefault();
+  const onCommentSubmit = async (values) => {
+    
+    const response =await commentService.create(serviceId, values.comment);
+   // console.log('HHH:',response);
 
-    await commentService.create({
-      serviceId,
-      username,
-      comment,
-    });
+   setServiceAsk (state => ({
+    ...state, 
+    comments: [
+      ...state.comments,
+      {
+        ...response,
+        author: {
+          email: userEmail,
+        }
+      }
+    ]
+   }));
 
-    const result = await airService.addComments(serviceId, {
-      username,
-      comment,
-    });
 
-    setServiceAsk((state) => ({
-      ...state,
-      comment: { ...state.comment, [result._id]: result },
-    }));
+    // const result = await airService.addComments(serviceId, {
+    //   username,
+    //   comment,
+    // });
 
-    setComment(""); // по този начин ги зачиставаме или занулираме
-    setUsername("");
+    // setServiceAsk((state) => ({
+    //   ...state,
+    //   comment: { ...state.comment, [result._id]: result },
+    // }));
+
+    // setComment(""); // по този начин ги зачиставаме или занулираме 
+    // setUsername(""); This maka in useForm with "setValues(initialValues)"
   };
 
   const isOwner = service._ownerId === userId; // console.log(isOwner);
@@ -84,18 +112,19 @@ export const Details = () => {
       <div className="details-comments">
         <h2>Comments:</h2>
         <ul>
-          {service.comments &&
-            Object.values(service.comments).map((x) => (
+          {service.comments && service.comments.map((x) => (
               <li key={x._id} className="comment">
                 <p>
-                  Content: {x.username} : {x.comment}
+                  Content: {x.author.email} : {x.comment}
                 </p>
               </li>
             ))}
         </ul>
-        {/* <!-- Display paragraph: If there are no games in the database --> */}
-        {/* {  !Object.values(service.comments).length && (<p className="no-comment">No comments.</p>)} */}
+       
+        {/* { !service.comments.length && (<p className="no-comment">No comments.</p>)} */}
       </div>
+
+    
 
       {isOwner && (
         <div className="buttons">
@@ -106,33 +135,8 @@ export const Details = () => {
         </div>
       )}
 
-      {/* <!-- Bonus -->
-            <!-- Add Comment ( Only for logged-in users, which is not creators of the current game ) --> */}
-      <article className="create-comment">
-        <label>Add new comment:</label>
-        <form className="form" onSubmit={onCommentSubmit}>
-          <input
-            type="text"
-            name="username"
-            placeholder="George"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+          {isAuthenticated && <AddComment onCommentSubmit={onCommentSubmit}/>}
 
-          <textarea
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            name="comment"
-            placeholder="Comment......"
-          ></textarea>
-          <input className="btn submit" type="submit" value="Add Comment" />
-        </form>
-      </article>
-
-      <Link
-        to={`/service/${serviceId}/coments`}
-        className="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle"
-      />
     </section>
   );
 };

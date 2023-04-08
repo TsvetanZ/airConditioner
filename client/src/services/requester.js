@@ -1,4 +1,4 @@
-const request = async (method, token, url, data) => {
+const request = async (method, url, data) => {
   const options = {};
 
   if (method !== "GET") {
@@ -12,30 +12,36 @@ const request = async (method, token, url, data) => {
     };
   };
 
-  if(token ) {
-    options.headers = {
-      ...options.headers, 
-      'X-Authorization': token,
-    };
-  };
+  
+    const serializedAuth = localStorage.getItem('auth');
+
+    if(serializedAuth) {
+      const auth = JSON.parse(serializedAuth);// it's wrong JSON.stringify
+
+      if(auth.accessToken) {
+          options.headers = {
+          ...options.headers, 
+          'X-Authorization': auth.accessToken,
+           };
+        };
+    }
+
+  
 
   const response = await fetch(url, options);
   
-
   if(response.status === 204) {
     return {}; // s this chahge the above(bottom) or lower one
     }
 
     const result = await response.json();
-     console.log('result:',result)
+     //console.log('result:',result)
 
     if (!response.ok) {
       throw result;
     }
 
     return result;
-
-   
 
 //     try {
 //       const result = await response.json();
@@ -48,14 +54,14 @@ const request = async (method, token, url, data) => {
 //   }
 };
 
-
-export const requestFactory = (token) => {
+export const requestFactory = () => {
+  
   return {
-    get : request.bind(null, "GET", token),
-    post : request.bind(null, "POST", token),
-    put : request.bind(null, "PUT", token),
-    patch : request.bind(null, "PATCH", token),
-    delete : request.bind(null, "DELETE", token),
+    get : request.bind(null, "GET" ),
+    post : request.bind(null, "POST"),
+    put : request.bind(null, "PUT"),
+    patch : request.bind(null, "PATCH"),
+    delete : request.bind(null, "DELETE"),
   };
 
 };

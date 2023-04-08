@@ -12,8 +12,9 @@ export const AuthProvider = ({
 }) => {
     const navigate = useNavigate();
     const [auth, setAuth] = useLocalStorage('auth', {});// change with const [auth, setAuth] = useState({});
-
+    
     const authService = authServiceFactory(auth.accessToken);
+    console.log('DA:',authServiceFactory(auth.accessToken))
 
     const onLoginSubmit = async (data) => {
         try {
@@ -47,8 +48,10 @@ export const AuthProvider = ({
     
 
     const onLogout = async () => {
+      //console.log('ehoooooooo:',authService)
         await authService.logout(); //authorized request
         //await authServiceFactory.logout(); //authorized request
+
         setAuth({});
 
       };

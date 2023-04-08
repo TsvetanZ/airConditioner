@@ -4,7 +4,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { airServiceFactory } from "./services/airService";
 //import { authServiceFactory } from "./services/authService"; // about move logic other provider
 //import * as authService from "./services/authService";
-import { AuthContext } from "./contexts/AuthContext";
+//import { AuthContext } from "./contexts/AuthContext";
 //import { useService } from "./hooks/userService";
 import { AuthProvider } from "./contexts/AuthContext";
 
@@ -19,6 +19,7 @@ import { Details } from "./components/Details/Details";
 import { Edit } from "./components/Edit/Edit";
 import { Comments } from "./components/Comments/Comments";
 import { Logout } from "./components/Logout/Logout";
+import { RouteGuard } from "./components/common/RouteGuard";
 
 function App() {
   const navigate = useNavigate();
@@ -108,20 +109,26 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
-
           <Route path="/register" element={<Register />} />
+          
           <Route
             path="/create"
-            element={<Create onCreateServiceSubmit={onCreateServiceSubmit} />}
+            element={
+            //<RouteGuard>
+            <Create onCreateServiceSubmit={onCreateServiceSubmit} />}
+            // </RouteGuard>}
           />
         
           <Route
             path="/service"
             element={<Service serviceAsks={serviceAsks} />}
           />
-          <Route path="/register" element={<Register />} />
-          <Route path="/service/:serviceId" element={<Details />} />
-          <Route path="/service/:serviceId/edit" element={<Edit onServiceEditSubmit={onServiceEditSubmit}/>} />
+
+          <Route element={<RouteGuard />}>
+          ``<Route path="/register" element={<Register />} />
+         `` <Route path="/service/:serviceId" element={<Details />} />
+            <Route path="/service/:serviceId/edit" element={<Edit onServiceEditSubmit={onServiceEditSubmit}/>} />
+          </Route>
           <Route path="/service/:serviceId/coments" element={<Comments />} />
         </Routes>
         {/* < PricePlan /> */}
